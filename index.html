@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twin Cities Animal Rescue - Home</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="rescue-logo_c.png" alt="Twin Cities Animal Rescue Logo">
+        <h1>Twin Cities Animal Rescue</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services & Adoption</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Welcome to Twin Cities Animal Rescue</h2>
+            <p>Every animal deserves a loving home. Whether you want to adopt, foster, or volunteer, there's a place for you here. Let's find the perfect match.</p>
+            <picture>
+                <source media="(min-width: 768px)" srcset="rescue-feature-large_c.png">
+                <img src="rescue-feature-small_c.png" alt="Man in a wheelchair smiling while walking a Bernese Mountain Dog outdoors">
+            </picture>
+        </section>
+        <section>
+            <h2>Featured Video</h2>
+            <p>See our shelter community in action:</p>
+            <p>Video exceeds GITHUB 25mb linit</p>
+        </section>
+    </main>
+    <footer>
+        <p>Subscribe to our newsletter for rescue updates!</p>
+        <input type="email" id="sub-email" placeholder="Enter your email">
+        <button id="sub-btn" type="button">Subscribe</button>
+        <p>&copy; 2026 Twin Cities Animal Rescue. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('sub-btn').addEventListener('click', function() {
+            const emailInput = document.getElementById('sub-email').value;
+            if (emailInput && emailInput.includes('@')) {
+                alert('Thank you for subscribing, ' + emailInput + '!');
+                document.getElementById('sub-email').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+</body>
+</html>
