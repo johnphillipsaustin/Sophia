@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twin Cities Animal Rescue - Services & Adoption</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="rescue-logo_c.png" alt="Twin Cities Animal Rescue Logo">
+        <h1>Services & Adoption Programs</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services & Adoption</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Our Programs</h2>
+            <p>We offer comprehensive pet adoption, foster care coordination, and community volunteer programs to ensure every rescue animal finds a safe and nurturing environment.</p>
+            <figure>
+                <img src="rescue-volunteer_c.png" alt="Volunteer wearing a white shirt interacting gently with a fluffy rescue dog">
+                <figcaption>A dedicated volunteer interacting with a rescue dog during our weekend social hour.</figcaption>
+            </figure>
+        </section>
+        
+        <section>
+            <h2>Adoptable Pet Wishlist Tracker</h2>
+            <p>Browse our current adoptable animals and click "Add to Favorites" to save pets to your session wishlist:</p>
+            
+            <div id="pet-catalog">
+                <!-- Dynamically populated or static cards with objects/arrays -->
+                <div class="pet-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <img src="rescue-pet_c.png" alt="Brown and white guinea pig looking alertly at the camera" width="150">
+                    <h3>Barnaby</h3>
+                    <p>Species: Guinea Pig | Age: 1 Year</p>
+                    <button type="button" onclick="addPetToWishlist('Barnaby')">Add to Favorites</button>
+                </div>
+                
+                <div class="pet-card" style="border: 1px solid #ddd; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+                    <img src="rescue-pet-spotlight_c.png" alt="Tabby cat with striking green and amber eyes" width="150">
+                    <h3>Cleo</h3>
+                    <p>Species: Cat | Age: 3 Years</p>
+                    <button type="button" onclick="addPetToWishlist('Cleo')">Add to Favorites</button>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; background: #eef2f3; padding: 15px; border-radius: 5px;">
+                <h3>Your Saved Wishlist (<span id="wishlist-count">0</span>)</h3>
+                <ul id="wishlist-display"></ul>
+                <button type="button" onclick="clearWishlist()" style="background-color: #e74c3c; margin-top: 10px;">Clear Wishlist</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Subscribe to our newsletter for rescue updates!</p>
+        <input type="email" id="sub-email" placeholder="Enter your email">
+        <button id="sub-btn" type="button">Subscribe</button>
+        <p>&copy; 2026 Twin Cities Animal Rescue. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Data structure 1: Array of pet objects
+        const shelterPets = [
+            { id: 1, name: 'Barnaby', species: 'Guinea Pig' },
+            { id: 2, name: 'Cleo', species: 'Cat' }
+        ];
+
+        // Data structure 2: Array managing user's session wishlist
+        let userWishlist = JSON.parse(sessionStorage.getItem('userWishlist')) || [];
+
+        function renderWishlist() {
+            const listElement = document.getElementById('wishlist-display');
+            const countElement = document.getElementById('wishlist-count');
+            listElement.innerHTML = '';
+            
+            userWishlist.forEach((petName, index) => {
+                const li = document.createElement('li');
+                li.textContent = petName;
+                listElement.appendChild(li);
+            });
+            countElement.textContent = userWishlist.length;
+        }
+
+        function addPetToWishlist(petName) {
+            if (!userWishlist.includes(petName)) {
+                userWishlist.push(petName);
+                sessionStorage.setItem('userWishlist', JSON.stringify(userWishlist));
+                renderWishlist();
+                alert(petName + ' has been successfully added to your adoption wishlist!');
+            } else {
+                alert(petName + ' is already in your wishlist.');
+            }
+        }
+
+        function clearWishlist() {
+            userWishlist = [];
+            sessionStorage.removeItem('userWishlist');
+            renderWishlist();
+            alert('Your wishlist has been cleared.');
+        }
+
+        // Load session data on page start
+        window.onload = function() {
+            renderWishlist();
+        };
+
+        document.getElementById('sub-btn').addEventListener('click', function() {
+            const emailInput = document.getElementById('sub-email').value;
+            if (emailInput && emailInput.includes('@')) {
+                alert('Thank you for subscribing, ' + emailInput + '!');
+                document.getElementById('sub-email').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+</body>
+</html>
