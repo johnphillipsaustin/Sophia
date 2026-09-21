@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twin Cities Animal Rescue - Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="rescue-logo_c.png" alt="Twin Cities Animal Rescue Logo">
+        <h1>Contact Us & Get Involved</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services & Adoption</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Get in Touch with Our Team</h2>
+            <p>Have questions about adopting, fostering, or volunteering? Fill out the form below to reach out to us!</p>
+            
+            <form id="inquiry-form" novalidate>
+                <fieldset>
+                    <legend>Adoption & Volunteer Inquiry Form</legend>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label for="fullname">Full Name:</label><br>
+                        <input type="text" id="fullname" name="fullname" style="width: 100%; padding: 8px;">
+                        <span id="name-error" class="error-message"></span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="email">Email Address:</label><br>
+                        <input type="email" id="email" name="email" style="width: 100%; padding: 8px;">
+                        <span id="email-error" class="error-message"></span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="phone">Phone Number (Format: 123-456-7890):</label><br>
+                        <input type="text" id="phone" name="phone" placeholder="123-456-7890" style="width: 100%; padding: 8px;">
+                        <span id="phone-error" class="error-message"></span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="interest">Area of Interest:</label><br>
+                        <select id="interest" name="interest" style="width: 100%; padding: 8px;">
+                            <option value="">--Please choose an option--</option>
+                            <option value="adopt">Adoption</option>
+                            <option value="foster">Fostering</option>
+                            <option value="volunteer">Volunteering</option>
+                        </select>
+                        <span id="interest-error" class="error-message"></span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="message">Your Message:</label><br>
+                        <textarea id="message" name="message" rows="4" style="width: 100%; padding: 8px;"></textarea>
+                        <span id="message-error" class="error-message"></span>
+                    </div>
+
+                    <div>
+                        <button type="submit">Submit Inquiry</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>Subscribe to our newsletter for rescue updates!</p>
+        <input type="email" id="sub-email" placeholder="Enter your email">
+        <button id="sub-btn" type="button">Subscribe</button>
+        <p>&copy; 2026 Twin Cities Animal Rescue. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Pre-fill form fields from localStorage if available
+        window.onload = function() {
+            const savedInquiry = JSON.parse(localStorage.getItem('savedInquiryData'));
+            if (savedInquiry) {
+                document.getElementById('fullname').value = savedInquiry.name || '';
+                document.getElementById('email').value = savedInquiry.email || '';
+                document.getElementById('phone').value = savedInquiry.phone || '';
+                document.getElementById('interest').value = savedInquiry.interest || '';
+            }
+        };
+
+        // Form submission and validation function
+        document.getElementById('inquiry-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let isValid = true;
+
+            // Clear previous errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+            document.querySelectorAll('input, select, textarea').forEach(el => el.classList.remove('error'));
+
+            // Validation 1: Required Full Name Check
+            const nameField = document.getElementById('fullname');
+            if (!nameField.value.trim()) {
+                document.getElementById('name-error').textContent = 'Error: Full name is required.';
+                nameField.classList.add('error');
+                isValid = false;
+            }
+
+            // Validation 2: Email Format Check (@ symbol and domain)
+            const emailField = document.getElementById('email');
+            const emailValue = emailField.value.trim();
+            if (!emailValue || !emailValue.includes('@') || !emailValue.includes('.')) {
+                document.getElementById('email-error').textContent = 'Error: Please enter a valid email address containing "@" and a domain.';
+                emailField.classList.add('error');
+                isValid = false;
+            }
+
+            // Validation 3: Phone Pattern Check (123-456-7890)
+            const phoneField = document.getElementById('phone');
+            const phoneRegex = /^\d{3}-\d{3}-\d{4}$/;
+            if (!phoneRegex.test(phoneField.value.trim())) {
+                document.getElementById('phone-error').textContent = 'Error: Phone number must follow the format 123-456-7890.';
+                phoneField.classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                const inquiryData = {
+                    name: nameField.value,
+                    email: emailValue,
+                    phone: phoneField.value,
+                    interest: document.getElementById('interest').value,
+                    message: document.getElementById('message').value
+                };
+
+                // Save to localStorage
+                localStorage.setItem('savedInquiryData', JSON.stringify(inquiryData));
+                alert('Thank you, ' + inquiryData.name + '! Your inquiry has been successfully validated and stored locally.');
+                this.reset();
+            } else {
+                alert('Please correct the highlighted errors before submitting the form.');
+            }
+        });
+
+        document.getElementById('sub-btn').addEventListener('click', function() {
+            const emailInput = document.getElementById('sub-email').value;
+            if (emailInput && emailInput.includes('@')) {
+                alert('Thank you for subscribing, ' + emailInput + '!');
+                document.getElementById('sub-email').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+</body>
+</html>
