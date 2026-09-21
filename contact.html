@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twin Cities Animal Rescue - Contact Us</title>
+</head>
+<body>
+    <header>
+        <img src="rescue-logo_c.png" alt="Twin Cities Animal Rescue Logo">
+        <h1>Contact Us & Get Involved</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services & Adoption</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Get in Touch with Our Team</h2>
+            <p>Have questions about adopting, fostering, or volunteering? Fill out the form below to reach out to us!</p>
+            <form action="#" method="POST">
+                <fieldset>
+                    <legend>Adoption & Volunteer Inquiry Form</legend>
+                    
+                    <div>
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" required>
+                    </div>
+
+                    <div>
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div>
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required>
+                    </div>
+
+                    <div>
+                        <label for="interest">Area of Interest:</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">--Please choose an option--</option>
+                            <option value="adopt">Adoption</option>
+                            <option value="foster">Fostering</option>
+                            <option value="volunteer">Volunteering</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="message">Your Message:</label>
+                        <textarea id="message" name="message" rows="4" required></textarea>
+                    </div>
+
+                    <div>
+                        <button type="submit">Submit Inquiry</button>
+                    </div>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Twin Cities Animal Rescue. All rights reserved.</p>
+    </footer>
+</body>
+</html>
