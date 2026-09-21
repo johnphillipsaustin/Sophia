@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Twin Cities Animal Rescue - Services & Adoption</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <img src="rescue-logo_c.png" alt="Twin Cities Animal Rescue Logo">
+        <h1>Services & Adoption Programs</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services & Adoption</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Our Programs</h2>
+            <p>We offer comprehensive pet adoption, foster care coordination, and community volunteer programs to ensure every rescue animal finds a safe and nurturing environment.</p>
+            <figure>
+                <img src="rescue-volunteer_c.png" alt="Volunteer wearing a white shirt interacting gently with a fluffy rescue dog">
+                <figcaption>A dedicated volunteer interacting with a rescue dog during our weekend social hour.</figcaption>
+            </figure>
+        </section>
+        <section>
+            <h2>Adoptable Spotlights & Support Items</h2>
+            <p>Add adoption registration packages or sponsor items to your cart:</p>
+            <ul>
+                <li>
+                    <img src="rescue-pet_c.png" alt="Brown and white guinea pig looking alertly at the camera" width="150">
+                    <p><strong>Barnaby Adoption Kit:</strong> $25</p>
+                    <button onclick="addToCart('Barnaby Adoption Kit', 25)">Add to Cart</button>
+                </li>
+                <li>
+                    <img src="rescue-pet-spotlight_c.png" alt="Tabby cat with striking green and amber eyes" width="150">
+                    <p><strong>Cleo Care Package:</strong> $30</p>
+                    <button onclick="addToCart('Cleo Care Package', 30)">Add to Cart</button>
+                </li>
+            </ul>
+            <div style="margin-top: 20px;">
+                <button onclick="viewCart()">View Cart / Session Summary</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Subscribe to our newsletter for rescue updates!</p>
+        <input type="email" id="sub-email" placeholder="Enter your email">
+        <button id="sub-btn">Subscribe</button>
+        <p>&copy; 2026 Twin Cities Animal Rescue. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function addToCart(itemName, price) {
+            let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            cart.push({ name: itemName, price: price });
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            alert(itemName + ' has been added to your cart!');
+        }
+
+        function viewCart() {
+            let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your shopping cart is empty.');
+            } else {
+                let summary = 'Items in your cart:\n';
+                let total = 0;
+                cart.forEach((item, index) => {
+                    summary += `${index + 1}. ${item.name} - $${item.price}\n`;
+                    total += item.price;
+                });
+                summary += `\nTotal: $${total}`;
+                alert(summary);
+            }
+        }
+
+        document.getElementById('sub-btn').addEventListener('click', function() {
+            const emailInput = document.getElementById('sub-email').value;
+            if (emailInput) {
+                alert('Thank you for subscribing, ' + emailInput + '!');
+                document.getElementById('sub-email').value = '';
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+</body>
+</html>
